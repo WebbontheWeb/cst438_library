@@ -1,5 +1,7 @@
 package com.cst438_library.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Patron {
@@ -16,6 +20,14 @@ public class Patron {
     private int patronId;
 
     private String name;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy="checkoutPatron")
+    private List<Book> books;
+
+    public List<Book> getBooks() {
+        return books;
+    }
 
     //getters and setters
     public int getPatronId() {

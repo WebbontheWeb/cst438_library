@@ -2,13 +2,14 @@ package com.cst438_library.domain;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -22,9 +23,11 @@ public class Book {
 
     private String author;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="patronId")
-    private Patron checkoutPatronId;
+    private Patron checkoutPatron;
+
     private Date checkoutDate;
 
     public int getBookId() {
@@ -47,12 +50,12 @@ public class Book {
         this.author = author;
     }
 
-    public Patron getCheckoutPatronId() {
-        return checkoutPatronId;
+    public Patron getCheckoutPatron() {
+        return checkoutPatron;
     }
 
-    public void setCheckoutPatronId(Patron checkoutPatronId) {
-        this.checkoutPatronId = checkoutPatronId;
+    public void setCheckoutPatron(Patron checkoutPatronId) {
+        this.checkoutPatron = checkoutPatronId;
     }
 
     public Date getCheckoutDate() {

@@ -5,7 +5,6 @@ import com.cst438_library.domain.BookRepository;
 import com.cst438_library.domain.Patron;
 import com.cst438_library.domain.PatronRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
-import java.util.List;
 
 @RestController
 public class LibraryController {
@@ -58,7 +56,7 @@ public class LibraryController {
             throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "No Patron matching that Id. " );
         }
 
-        book.setCheckoutPatronId(patron);
+        book.setCheckoutPatron(patron);
         book.setCheckoutDate(new Date(System.currentTimeMillis()));
 
         return bookRepository.save(book);
@@ -73,12 +71,12 @@ public class LibraryController {
             throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "No Book matching that Id." );
         }
 
-        if(book.getCheckoutPatronId() == null){
-            System.out.println("Not Found");
-            throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Book is not checked out." );
-        }
+//        if(book.getCheckoutPatron() == null){
+//            System.out.println("Not Found");
+//            throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Book is not checked out." );
+//        }
 
-        book.setCheckoutPatronId(null);
+        book.setCheckoutPatron(null);
         book.setCheckoutDate(null);
 
         return bookRepository.save(book);
